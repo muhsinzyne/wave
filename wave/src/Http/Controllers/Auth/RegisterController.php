@@ -3,6 +3,8 @@ namespace Wave\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use App\Jobs\CreatePosApp;
+use App\Models\Enum\GeneralConst;
 use App\Models\UserApps;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Auth\Events\Registered;
@@ -99,8 +101,7 @@ class RegisterController extends \App\Http\Controllers\Controller
             $username = $this->getUniqueUsernameFromEmail($data['email']);
         }
 
-        $subdomain = $this->getUniqueSubDomainFromStore($data['store_name']);
-
+        $subdomain         = $this->getUniqueSubDomainFromStore($data['store_name']);
         $username_original = $username;
         $counter           = 1;
 
@@ -124,11 +125,27 @@ class RegisterController extends \App\Http\Controllers\Controller
             'role_id'           => $role->id,
             'verification_code' => $verification_code,
             'verified'          => $verified,
-            'trial_ends_at'     => $trial_ends_at
+            'trial_ends_at'     => $trial_ends_at,
+            'mobile_no'         => $data['mobile_no']
         ]);
 
         if (setting('auth.verify_email', false)) {
             $this->sendVerificationEmail($user);
+        }
+
+        $userApp = UserApps::create([
+            'user_id'              => $user->id,
+            'store_name'           => $data['store_name'],
+            'sub_domain'           => $subdomain,
+            'is_trial'             => GeneralConst::TRUE,
+            'trial_end_at'         => $trial_ends_at,
+            'subscription_ends_at' => $trial_ends_at,
+            'app_password'         => $data['password']
+
+        ]);
+
+        if ($userApp) {
+            dispatch(new CreatePosApp($userApp))->delay(Carbon::now()->addSeconds(30));
         }
 
         return $user;
