@@ -16,8 +16,6 @@
     </div>
 
     <div class="flex flex-col justify-center pb-10 sm:pb-20 sm:px-6 lg:px-8">
-
-
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
             <div class="px-4 py-8 bg-white border shadow border-gray-50 sm:rounded-lg sm:px-10">
                 <form role="form" method="POST" action="@if(setting('billing.card_upfront')){{ route('wave.register-subscribe') }}@else{{ route('register') }}@endif">
@@ -35,6 +33,10 @@
 
                     @csrf
 
+
+
+                    
+
                     <div class="mt-6">
                         <label for="name" class="block text-sm font-medium leading-5 text-gray-700">
                             Name
@@ -48,6 +50,39 @@
                             </div>
                         @endif
                     </div>
+
+
+
+                    <div class="mt-6">
+                        <label for="store_name" class="block text-sm font-medium leading-5 text-gray-700">
+                            Store Name
+                        </label>
+                        <div class="mt-1 rounded-md shadow-sm">
+                            <input id="store_name" type="text" name="store_name" required class="w-full form-input" value="{{ old('store_name') }}" @if(!setting('billing.card_upfront')){{ 'autofocus' }}@endif>
+                        </div>
+                        @if ($errors->has('store_name'))
+                            <div class="mt-1 text-red-500">
+                                {{ $errors->first('store_name') }}
+                            </div>
+                        @endif
+                    </div>
+
+
+
+                    <div class="mt-6">
+                        <label for="mobile_no" class="block text-sm font-medium leading-5 text-gray-700">
+                            Mobile No
+                        </label>
+                        <div class="mt-1 rounded-md shadow-sm">
+                            <input id="mobile_no" type="text" name="mobile_no" required class="w-full form-input" value="{{ old('mobile_no') }}" @if(!setting('billing.card_upfront')){{ 'autofocus' }}@endif>
+                        </div>
+                        @if ($errors->has('mobile_no'))
+                            <div class="mt-1 text-red-500">
+                                {{ $errors->first('mobile_no') }}
+                            </div>
+                        @endif
+                    </div>
+
 
                     @if(setting('auth.username_in_registration') && setting('auth.username_in_registration') == 'yes')
                         <div class="mt-6">
