@@ -21,7 +21,9 @@
         "sass": "^1.26.10",
         "sass-loader": "^7.1.0",
         "tailwindcss": "^2.0.2",
-        "vue-template-compiler": "^2.6.11"
+        "vue": "^2.6.12",
+        "vue-loader": "^15.9.8",
+        "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
         "@tailwindcss/typography": "^0.3.0",
