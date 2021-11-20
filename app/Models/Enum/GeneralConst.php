@@ -14,4 +14,14 @@ class GeneralConst
     const GOCO_PRODUCT_ACTIVE = 1;
 
     const CREATED_AT_FORMAT = 'M d Y  H:i A';
+    const CPANELENV         = [
+        'production',
+        'staging',
+    ];
+}
+
+class DriverConst
+{
+    const API   = 'cpanel_api';
+    const LOCAL = 'local';
 }
