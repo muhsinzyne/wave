@@ -12,4 +12,6 @@ class GeneralConst
     const SHIPPED = 'SHIPPED';
 
     const GOCO_PRODUCT_ACTIVE = 1;
+
+    const CREATED_AT_FORMAT = 'M d Y  H:i A';
 }

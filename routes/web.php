@@ -1,5 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use Wave\Wave;
+use TCG\Voyager\Voyager;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,10 +16,8 @@
 |
 */
 
-
 // Authentication routes
 Auth::routes();
-
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();

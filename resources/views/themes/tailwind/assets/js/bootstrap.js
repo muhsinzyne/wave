@@ -1,3 +1,6 @@
+window.Vue = require('vue').default;
+
+
 window._ = require('lodash');
 
 /**

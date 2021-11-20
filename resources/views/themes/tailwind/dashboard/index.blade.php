@@ -4,7 +4,74 @@
 @section('content')
 
 
-	<div class="flex flex-col px-8 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
+    <section class="px-4 sm:px-6 lg:px-4 xl:px-6 pt-4 pb-4 sm:pb-6 lg:pb-4 xl:pb-6 space-y-4">
+        <div class="flex flex-col px-8 mx-auto my-6  max-w-7xl xl:px-5">
+            <div class="col-span-12 mt-6  zindex-change">
+                <div class="intro-y block sm:flex items-center h-10">
+                    <h2 class="text-lg font-medium truncate mr-5">
+                        POS Apps
+                    </h2>
+
+                </div>
+                <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
+                    <table class="table table-report sm:mt-2">
+                        <thead>
+                            <tr>
+                                <th class="whitespace-no-wrap">ID</th>
+                                <th class="whitespace-no-wrap">PRODUCT NAME</th>
+                                <th class="whitespace-no-wrap">CREATED ON</th>
+                                <th class="whitespace-no-wrap">EXPIRES AT</th>
+                                <th class="text-center whitespace-no-wrap">STATUS</th>
+                                <th class="text-center whitespace-no-wrap">ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach ($userAppList as $key=> $app)
+                            <tr class="intro-x">
+                                <td class="w-40">
+                                    <div class="flex">
+                                        {{$key+1}}
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="" class="font-medium whitespace-no-wrap"> {{$app->store_name}} </a>
+                                    <div class="text-gray-600 text-xs whitespace-no-wrap">  {{config('app.saas_protocol').$app->sub_domain.'.'.config('app.saas') }} </div>
+                                </td>
+                                <td class="text-left"> {{$app->created_at->format('M d Y  H:i A') }} </td>
+                                <td class="text-left"> {{$app->subscriptionEndsAt() }} </td>
+                                <td class="w-40">
+                                    <div class="flex items-center justify-center text-theme-9">
+                                        <i data-feather="check-square" class="w-4 h-4 mr-2"></i> {{ $app->appStatus() }}
+                                    </div>
+                                </td>
+                                <td class="table-report__action w-56">
+                                    <div class="flex justify-center items-center">
+                                        <a class="flex items-center mr-3" href=""> <i data-feather="check-square"
+                                                class="w-4 h-4 mr-1"></i> Settings </a>
+                                        <a class="flex items-center mr-3" href=""> <i data-feather="trash-2"
+                                                class="w-4 h-4 mr-1"></i> Open </a>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                            
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+
+        </div>
+    </section>
+
+
+
+
+    {{-- <div class="flex flex-col px-8 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
 	    <div class="flex flex-col justify-start flex-1 mb-5 overflow-hidden bg-white border rounded-lg lg:mr-3 lg:mb-0 border-gray-150">
 	        <div class="flex flex-wrap items-center justify-between p-5 bg-white border-b border-gray-150 sm:flex-no-wrap">
 				<div class="flex items-center justify-center w-12 h-12 mr-5 rounded-lg bg-wave-100">
@@ -54,6 +121,6 @@
 			</div>
 	    </div>
 
-	</div>
+	</div> --}}
 
 @endsection

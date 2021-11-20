@@ -1,17 +1,15 @@
 <?php
-
 namespace Wave;
 
 class Wave
 {
-	public function routes()
+    public static function routes()
     {
-        require __DIR__.'/../routes/web.php';
+        require __DIR__ . '/../routes/web.php';
     }
 
     public function api()
     {
-    	require __DIR__.'/../routes/api.php';
+        require __DIR__ . '/../routes/api.php';
     }
-
 }
