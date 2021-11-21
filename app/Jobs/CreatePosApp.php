@@ -53,11 +53,12 @@ class CreatePosApp implements ShouldQueue
             $dbName   = self::DB_PREFIX . '_' . $this->userApp->id . '_' . $this->userApp->sub_domain;
             $dbHelper = new DBGenerateHelper();
             $dbHelper->createDataBase($dbName);
+            $dbHelper->importTables($dbName);
             //DB::statement('CREATE DATABASE ' . $dbName);
             //DB::statement('USE ' . $dbName);
-            DB::unprepared(file_get_contents(config('app.saas_pos_location') . '/install/saas-database/pos_demo.sql'));
+            //DB::unprepared(file_get_contents(config('app.saas_pos_location') . '/install/saas-database/pos_demo.sql'));
             $config  = file_get_contents('https://raw.githubusercontent.com/muhsinzyne/raw_files/main/pos/db_config.txt');
-            DB::statement('USE ' . config('database.connections.mysql.database'));
+            //DB::statement('USE ' . config('database.connections.mysql.database'));
             $posAppUrl = config('app.saas_protocol') . $this->userApp->sub_domain . '.' . config('app.saas');
             $config    = StringHelper::replaceWordsFromTemplate($config, [
                 'baseUrl'      => $posAppUrl,
@@ -66,7 +67,6 @@ class CreatePosApp implements ShouldQueue
                 'password'     => config('database.connections.mysql.password'),
                 'databaseName' => $dbName,
             ]);
-
             file_put_contents(
                 config('app.saas_pos_location') .
                 self::CONFIG_LOCATION .
