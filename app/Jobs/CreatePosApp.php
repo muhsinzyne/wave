@@ -4,6 +4,7 @@ namespace App\Jobs;
 use App\Helpers\DB\DBGenerateHelper;
 use App\Helpers\Pos\PosIntegration;
 use App\Helpers\StringHelper;
+use App\Models\Enum\GeneralConst;
 use App\Models\UserApps ;
 use Carbon\Carbon;
 use Exception;
@@ -18,9 +19,11 @@ use Illuminate\Support\Facades\DB;
 class CreatePosApp implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    const DB_PREFIX       = 'pos';
+    const DB_PREFIX       = 'pos_';
     const CONFIG_LOCATION = '/app/config/';
     public $userApp;
+
+    public $dbMode = '';
 
     /**
      * Create a new job instance.
@@ -29,6 +32,22 @@ class CreatePosApp implements ShouldQueue
      */
     public function __construct($userApp)
     {
+        switch (config('app.env')) {
+            case GeneralConst::LOCAL:
+                $this->dbMode = 'l_';
+
+                break;
+            case GeneralConst::STAGING:
+                $this->dbMode = 'st_';
+
+                break;
+            case GeneralConst::PRODUCTION:
+                $this->dbMode = 'pr_';
+
+            break;
+            default:
+                $this->dbMode = 'df_';
+        }
         $this->userApp = $userApp;
         // $this->userApp = $app;
         //
@@ -50,7 +69,7 @@ class CreatePosApp implements ShouldQueue
     private function runScripts()
     {
         try {
-            $dbName   = self::DB_PREFIX . '_' . $this->userApp->id . '_' . $this->userApp->sub_domain;
+            $dbName   = self::DB_PREFIX . $this->dbMode . $this->userApp->id . '_' . $this->userApp->sub_domain;
             $dbHelper = new DBGenerateHelper();
             $dbHelper->createDataBase($dbName);
             $dbHelper->importTables($dbName);

@@ -13,6 +13,10 @@ class GeneralConst
 
     const GOCO_PRODUCT_ACTIVE = 1;
 
+    const LOCAL      = 'local';
+    const STAGING    = 'staging';
+    const PRODUCTION = 'production';
+
     const CREATED_AT_FORMAT = 'M d Y  H:i A';
     const CPANELENV         = [
         'production',
