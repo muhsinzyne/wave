@@ -145,7 +145,7 @@ class RegisterController extends \App\Http\Controllers\Controller
         ]);
 
         if ($userApp) {
-            dispatch(new CreatePosApp($userApp))->delay(Carbon::now()->addSeconds(5));
+            dispatch(new CreatePosApp($userApp));
         }
 
         return $user;
