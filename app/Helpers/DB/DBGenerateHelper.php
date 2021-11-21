@@ -34,12 +34,13 @@ class DBGenerateHelper
 
     public function importTables($dbName)
     {
+        $baseDb = config('database.connections.mysql.database');
         DB::purge('mysql');
         Config::set('database.connections.mysql.database', $dbName);
         DB::reconnect('mysql');
         DB::unprepared(file_get_contents(config('app.saas_pos_location') . '/install/saas-database/pos_demo.sql'));
         DB::purge('mysql');
-        Config::set('database.connections.mysql.database', config('database.connections.mysql.database'));
+        Config::set('database.connections.mysql.database', $baseDb);
         DB::reconnect('mysql');
     }
 
@@ -59,20 +60,7 @@ class DBGenerateHelper
             curl_setopt($curl, CURLOPT_URL, $query);            // execute the query
             $result = curl_exec($curl);
             if ($result == false) {
-                echo '<pre>';
-                print_r($curl);
-                echo '</pre>';
-                echo '<pre>';
-                print_r($header);
-                echo '</pre>';
-                //die();
-                //die();
-                echo '<pre>';
-                print_r($query);
-                echo '</pre>';
-                die();
-
-                // log error if curl exec fails
+                //db creation error
             }
             curl_close($curl);
 
