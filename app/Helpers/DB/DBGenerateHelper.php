@@ -62,6 +62,10 @@ class DBGenerateHelper
                 echo '<pre>';
                 print_r($curl);
                 echo '</pre>';
+                echo '<pre>';
+                print_r($header);
+                echo '</pre>';
+                //die();
                 //die();
                 echo '<pre>';
                 print_r($query);
