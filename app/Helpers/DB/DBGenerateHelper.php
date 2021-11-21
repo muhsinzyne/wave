@@ -27,9 +27,9 @@ class DBGenerateHelper
         } else {
             $this->driver = DriverConst::LOCAL;
         }
-        $this->cpanelPassowrd = env('CPANEL_PASSWORD', '');
-        $this->cpanelUserName = env('CPANEL_USERNAME', '');
-        $this->dns            = env('CPANEL_DNS', '');
+        $this->cpanelPassowrd = config('app.cpassword');
+        $this->cpanelUserName = config('app.cuser');
+        $this->dns            = config('app.cdns');
     }
 
     public function importTables($dbName)
@@ -47,7 +47,7 @@ class DBGenerateHelper
     {
         if ($this->driver == DriverConst::API) {
             // cpanel create database script gose here
-            $query = "https://$this->dns:2083/json-api/cpanel?cpanel_jsonapi_module=Mysql&cpanel_jsonapi_func=adddb&cpanel_jsonapi_apiversion=1&arg-0=$dbName";
+            $query = 'https://' . $this->dns . ':2083/json-api/cpanel?cpanel_jsonapi_module=Mysql&cpanel_jsonapi_func=adddb&cpanel_jsonapi_apiversion=1&arg-0=' . $dbName;
 
             $curl = curl_init();                                // Create Curl Object
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);       // Allow self-signed certs

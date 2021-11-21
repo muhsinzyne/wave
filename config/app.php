@@ -11,6 +11,9 @@ return [
     'saas'              => env('APP_SAAS', ''),
     'saas_protocol'     => env('SAAS_PROTOCOLE', 'http://'),
     'saas_pos_location' => env('SAAS_POS_LOCATION', ''),
+    'cuser'             => env('CPANEL_PASSWORD', ''),
+    'cpassword'         => env('CPANEL_USERNAME', ''),
+    'cdns'              => env('CPANEL_DNS', ''),
 
     /*
     |--------------------------------------------------------------------------
