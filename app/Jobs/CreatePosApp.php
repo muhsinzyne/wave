@@ -20,7 +20,7 @@ class CreatePosApp implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     const DB_PREFIX       = 'pos_';
-    const CONFIG_LOCATION = '/app/config/';
+    const CONFIG_LOCATION = '/app/config/domain/';
     public $userApp;
 
     public $dbMode = '';
